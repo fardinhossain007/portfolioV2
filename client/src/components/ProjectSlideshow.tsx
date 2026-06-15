@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "./icons";
-import ProjectCover from "./ProjectCover";
+import ProjectMedia from "./ProjectMedia";
 import { projects } from "@/siteConfig";
 
 const slides = projects.filter((p) => p.featured);
@@ -44,8 +44,8 @@ export default function ProjectSlideshow() {
           className="grid md:grid-cols-2"
         >
           {/* cover */}
-          <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[340px] border-b md:border-b-0 md:border-r border-border">
-            <ProjectCover cover={p.cover} />
+          <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[340px] border-b md:border-b-0 md:border-r border-border overflow-hidden">
+            <ProjectMedia project={p} />
           </div>
 
           {/* details */}

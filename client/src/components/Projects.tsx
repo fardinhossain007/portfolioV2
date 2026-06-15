@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import ProjectSlideshow from "./ProjectSlideshow";
-import ProjectCover from "./ProjectCover";
+import ProjectMedia from "./ProjectMedia";
 import { GithubIcon } from "./icons";
 import { projects, type Project } from "@/siteConfig";
 
@@ -20,7 +20,7 @@ function GridCard({ p, i }: { p: Project; i: number }) {
       {/* thumbnail */}
       <div className="relative aspect-[16/9] border-b border-border overflow-hidden">
         <div className="h-full w-full transition-transform duration-500 group-hover:scale-105">
-          <ProjectCover cover={p.cover} />
+          <ProjectMedia project={p} />
         </div>
         {p.metric && (
           <span className="absolute bottom-2 left-2 chip bg-black/40 backdrop-blur-md text-foreground">
