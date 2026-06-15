@@ -112,6 +112,7 @@ website_analysis.md
 screenshots/
 attached_assets/
 .manus/
+.claude/
 
 # Keep these important files
 !README.md

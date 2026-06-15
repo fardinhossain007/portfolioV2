@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, MapPin } from "lucide-react";
+import SectionHeading from "./SectionHeading";
 
 interface ExperienceItem {
+  tab: string;
   company: string;
   role: string;
   period: string;
@@ -10,82 +14,123 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    company: "Air Alliance Ltd.",
-    role: "Management Trainee – Information Technology",
-    period: "AUGUST 2024 – AUGUST 2025",
-    location: "Dhaka, Bangladesh",
+    tab: "NYIT · Research",
+    company: "NYIT — Academic Affairs",
+    role: "Research Assistant",
+    period: "MAR 2026 – PRESENT",
+    location: "New York, NY",
     responsibilities: [
-      "Developed automated Python and SQL pipelines integrated with SQL Server and Navicat to eliminate 10+ hours of weekly manual reporting, reducing report generation time by 60%, and data entry errors by 50% for sales and logistics performance reviews.",
-      "Deployed and managed Microsoft Entra ID and Intune MDM across 200+ endpoints in collaboration with IT team, standardizing security policies across 3 office locations and reducing unauthorized access incidents by 40%.",
-      "Provided technical support for email configuration, hardware provisioning, and software troubleshooting for 200+ employees, maintaining 95%+ uptime and ensuring compliance with corporate IT policies.",
-      "Migrated legacy reporting system from manual Excel workflows to automated SQL-based solution, improving data accuracy and enabling real-time analytics for operations team.",
+      "Ran a quasi-experimental observational study on 16,000+ student records — applying EDA and statistical testing to isolate the effect of schedule gaps on GPA, finding no significant causal link and redirecting institutional policy toward retention-focused interventions.",
+      "Built a Python ETL pipeline to clean, normalize and transform raw scheduling data, expanding the usable analytic dataset by 30%, and produced reproducible notebooks communicating methodology to non-technical Academic Affairs stakeholders.",
     ],
   },
   {
-    company: "Robi Axiata Ltd.",
-    role: "Risk and Compliance Intern",
-    period: "APRIL 2024 – JULY 2024",
+    tab: "NYIT · Inst. Research",
+    company: "NYIT — Institutional Research",
+    role: "Student Worker",
+    period: "JAN 2026 – MAR 2026",
+    location: "New York, NY",
+    responsibilities: [
+      "Mined large, unstructured institutional datasets — parsing ~60 semester-map PDFs (camelot-py, pandas) into structured datasets and building a course-flow visualizer that surfaced co-/pre-requisite redundancies across degree programs to inform curriculum optimization.",
+      "Integrated the Google Distance Matrix API to collect commute data for 3,500+ students, ran multi-dimensional EDA (time, distance, transit mode), and delivered findings via an interactive Plotly Dash dashboard to guide early/late scheduling.",
+    ],
+  },
+  {
+    tab: "Air Alliance",
+    company: "Air Alliance Ltd. (UPS Authorized Contractor)",
+    role: "Management Trainee – IT",
+    period: "AUG 2024 – AUG 2025",
     location: "Dhaka, Bangladesh",
     responsibilities: [
-      "Built Python automation scripts using Tenable.sc API to extract and process vulnerability data, reducing manual analysis time by 50% and enabling same-day risk assessments for the security team.",
-      "Designed Power BI dashboards tracking vulnerability trends across 500+ assets by severity and remediation status, providing executive visibility into high-risk security gaps and improving patch deployment prioritization.",
+      "Designed and queried a MySQL relational database tracking 500+ assets across departments, writing reproducible SQL for audit reporting and asset-lifecycle analysis to replace manual spreadsheet workflows with a structured, queryable system.",
+      "Built Python + SQL backend logic to automate receipt-voiding workflows (~100–150 requests/month) across multi-department approval chains, reducing processing errors across Operations and Finance.",
+    ],
+  },
+  {
+    tab: "Robi Axiata",
+    company: "Robi Axiata Ltd.",
+    role: "Risk & Compliance Intern – Cybersecurity",
+    period: "APR 2024 – JUL 2024",
+    location: "Dhaka, Bangladesh",
+    responsibilities: [
+      "Automated large-scale data extraction via the Tenable.sc API in Python, processing vulnerability records across 500+ enterprise assets — cutting manual analysis time by 50% and enabling same-day statistical risk assessments.",
+      "Built Power BI dashboards visualizing severity distributions and remediation trends across asset cohorts, helping executives identify high-risk exposure patterns and prioritize patch actions with data-driven metrics.",
     ],
   },
 ];
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
 export default function Experience() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [active, setActive] = useState(0);
+  const exp = experiences[active];
 
   return (
-    <section id="experience" className="min-h-screen py-20">
-      <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-16">
-          <span className="text-accent">/</span> experience
-        </h2>
+    <section id="experience" className="section">
+      <div className="container">
+        <SectionHeading index="03" kicker="experience" title="Where I've worked" />
 
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Tab buttons */}
-          <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible">
-            {experiences.map((exp, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTab(index)}
-                className={`px-4 py-3 text-left whitespace-nowrap md:whitespace-normal transition-all duration-300 border-l-2 md:border-l-2 ${
-                  activeTab === index
-                    ? "border-accent text-accent bg-accent/5"
-                    : "border-border text-muted-foreground hover:bg-muted/50"
-                }`}
-              >
-                {exp.company}
-              </button>
-            ))}
+        <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+          {/* Tabs */}
+          <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible md:min-w-[230px] pb-2 md:pb-0">
+            {experiences.map((e, i) => {
+              const isActive = active === i;
+              return (
+                <button
+                  key={e.tab}
+                  onClick={() => setActive(i)}
+                  className={`relative text-left whitespace-nowrap md:whitespace-normal rounded-lg px-4 py-3 font-mono text-sm transition-colors ${
+                    isActive
+                      ? "text-foreground bg-white/[0.05]"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/[0.03]"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="exp-active"
+                      className="absolute left-0 top-2 bottom-2 w-0.5 rounded-full"
+                      style={{ background: "linear-gradient(var(--indigo), var(--cyan))" }}
+                    />
+                  )}
+                  {e.tab}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Content */}
-          <div className="flex-1">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl md:text-2xl font-semibold">
-                  {experiences[activeTab].role}{" "}
-                  <span className="text-accent">@ {experiences[activeTab].company}</span>
+          {/* Detail */}
+          <div className="flex-1 min-h-[320px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease }}
+                className="glass-card p-6 md:p-8"
+              >
+                <h3 className="text-xl font-semibold">
+                  {exp.role}{" "}
+                  <span className="text-gradient">@ {exp.company}</span>
                 </h3>
-                <p className="text-sm text-muted-foreground mt-2 font-mono">
-                  {experiences[activeTab].period}
-                </p>
-                <p className="text-sm text-muted-foreground font-mono">
-                  {experiences[activeTab].location}
-                </p>
-              </div>
+                <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-muted-foreground">
+                  <span className="text-primary">{exp.period}</span>
+                  <span className="flex items-center gap-1">
+                    <MapPin className="h-3 w-3" />
+                    {exp.location}
+                  </span>
+                </div>
 
-              <ul className="space-y-4">
-                {experiences[activeTab].responsibilities.map((item, index) => (
-                  <li key={index} className="flex gap-3 text-foreground/80">
-                    <span className="text-accent mt-1 flex-shrink-0">▹</span>
-                    <span className="leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <ul className="mt-6 space-y-3">
+                  {exp.responsibilities.map((item, idx) => (
+                    <li key={idx} className="flex gap-3 text-foreground/80 leading-relaxed">
+                      <ChevronRight className="h-4 w-4 text-accent shrink-0 mt-1" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

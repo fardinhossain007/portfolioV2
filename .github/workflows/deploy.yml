@@ -32,20 +32,20 @@ jobs:
           version: 8
       
       - name: Install dependencies
-        run: pnpm install
-        working-directory: ./client
-      
+        run: pnpm install --frozen-lockfile
+
       - name: Build
         run: pnpm build
-        working-directory: ./client
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+        with:
+          enablement: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./client/dist
+          path: ./dist/public
   
   deploy:
     environment:

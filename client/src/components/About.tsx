@@ -1,65 +1,113 @@
-import { User } from "lucide-react";
+import { motion } from "framer-motion";
+import { GraduationCap, Award, Sparkles } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+
+const education = [
+  {
+    school: "New York Institute of Technology",
+    degree: "M.S. Data Science",
+    detail: "GPA 4.0 / 4.0",
+    period: "Expected May 2027",
+  },
+  {
+    school: "University of Southampton, UK",
+    degree: "B.Eng. Electrical & Electronic Engineering",
+    detail: "CGPA 3.5 / 4.0",
+    period: "June 2023",
+  },
+];
+
+const certifications = [
+  "Google Data Analytics Professional Certificate",
+  "NVIDIA DLI — Getting Started with Deep Learning",
+  "Databricks Lakehouse Workshop (NYIT)",
+];
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function About() {
-  const technologies = [
-    "Python (Pandas, NumPy, PyTorch)",
-    "C/C++",
-    "SQL & NoSQL Databases",
-    "Machine Learning & NLP",
-    "TensorFlow & Scikit-learn",
-    "PowerBI & Tableau",
-    "Docker & Git",
-    "MATLAB",
-  ];
-
   return (
-    <section id="about" className="py-20 bg-muted/30">
+    <section id="about" className="section">
       <div className="container">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 flex items-center gap-3">
-          <span className="text-black">/</span> about me
-        </h2>
+        <SectionHeading index="01" kicker="about" title="A bit about me" />
 
-        <div className="max-w-3xl space-y-8">
-          <div className="flex items-start gap-8">
-            <div className="hidden md:block">
-              <div className="w-32 h-32 rounded-lg border-2 border-primary/20 flex items-center justify-center bg-background">
-                <User className="w-16 h-16 text-primary/40" />
-              </div>
-            </div>
-
-            <div className="flex-1 space-y-4 text-foreground/90 leading-relaxed">
-              <p>
-                I'm currently pursuing my <strong className="text-black">Master of Science in Data Science</strong> at <strong className="text-black">New York Institute of Technology</strong> (expected May 2027). 
-                Before this, I graduated from the <strong className="text-black">University of Southampton</strong> with a <strong className="text-black">Bachelor of Engineering in Electrical and Electronics Engineering</strong> (June 2023).
-              </p>
-              
-              <p>
-                I bring over a year of hands-on IT work experience, specializing in automation, data analytics, and system optimization.
-              </p>
-            </div>
-          </div>
-
-          {/* Technologies Section */}
-          <div className="pt-4">
-            <p className="text-foreground/80 mb-4">
-              Here are some technologies I have been working with:
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              {technologies.map((tech, index) => (
-                <div key={index} className="flex items-center gap-2 text-sm text-foreground/80">
-                  <span className="text-primary">▹</span>
-                  <span className="font-mono">{tech}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Personal Interests */}
-          <div className="pt-4 text-foreground/80">
+        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-10">
+          {/* Narrative */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease }}
+            className="space-y-5 text-foreground/85 leading-relaxed"
+          >
             <p>
-              Outside of work, I'm interested in following the developments of science. I also play a lot of video games. And make python scripts to make my life easier :)
+              I'm a data scientist who turns messy, multi-source data into models and
+              decisions that hold up. I'm earning my{" "}
+              <strong className="text-foreground">M.S. in Data Science</strong> at the{" "}
+              <strong className="text-foreground">New York Institute of Technology</strong>{" "}
+              (4.0 GPA), where I work as a{" "}
+              <strong className="text-foreground">Research Assistant in Academic Affairs</strong>{" "}
+              — running statistical and causal studies on tens of thousands of student
+              records and building the Python ETL pipelines behind them.
             </p>
-          </div>
+            <p>
+              Before grad school I spent over a year across industry IT and cybersecurity —
+              designing SQL databases, automating workflows in Python, and building Power BI
+              and Plotly dashboards that turned manual reporting into same-day insight. I
+              hold a{" "}
+              <strong className="text-foreground">
+                B.Eng. in Electrical &amp; Electronic Engineering
+              </strong>{" "}
+              from the University of Southampton.
+            </p>
+
+            <div className="glass-card p-5 flex gap-3 items-start">
+              <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <p className="text-muted-foreground italic">
+                Outside of work I follow the latest in science, play a lot of video
+                games, and write Python scripts to make my life easier. :)
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Education timeline */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease }}
+            className="space-y-4"
+          >
+            <div className="flex items-center gap-2 text-muted-foreground font-mono text-sm">
+              <GraduationCap className="h-4 w-4 text-primary" />
+              education
+            </div>
+            {education.map((e) => (
+              <div key={e.school} className="glass-card p-5">
+                <p className="font-semibold">{e.degree}</p>
+                <p className="text-sm text-foreground/70 mt-1">{e.school}</p>
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs text-primary">{e.period}</span>
+                  <span className="font-mono text-xs text-accent">{e.detail}</span>
+                </div>
+              </div>
+            ))}
+
+            <div className="glass-card p-5">
+              <div className="flex items-center gap-2 text-muted-foreground font-mono text-sm mb-3">
+                <Award className="h-4 w-4 text-accent" />
+                certifications
+              </div>
+              <ul className="space-y-2">
+                {certifications.map((c) => (
+                  <li key={c} className="flex gap-2 text-sm text-foreground/80">
+                    <span className="text-accent mt-0.5">▹</span>
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
