@@ -141,10 +141,6 @@ The built files will be in `client/dist/` directory.
 
 MIT License - feel free to use this template for your own portfolio!
 
-## Credits
-
-Built with [Manus AI](https://manus.im) - Design inspired by modern portfolio websites
-
 ## Contact
 
 - GitHub: [@fardinhossain007](https://github.com/fardinhossain007)
