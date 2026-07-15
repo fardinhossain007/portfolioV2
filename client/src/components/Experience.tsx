@@ -14,25 +14,35 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    tab: "NYIT · Research",
-    company: "NYIT — Academic Affairs",
-    role: "Research Assistant",
-    period: "MAR 2026 – PRESENT",
+    tab: "NYIT · Summer Researcher",
+    company: "New York Institute of Technology",
+    role: "Summer Researcher",
+    period: "JUN 2026 – PRESENT",
     location: "New York, NY",
     responsibilities: [
-      "Ran a quasi-experimental observational study on 16,000+ student records — applying EDA and statistical testing to isolate the effect of schedule gaps on GPA, finding no significant causal link and redirecting institutional policy toward retention-focused interventions.",
-      "Built a Python ETL pipeline to clean, normalize and transform raw scheduling data, expanding the usable analytic dataset by 30%, and produced reproducible notebooks communicating methodology to non-technical Academic Affairs stakeholders.",
+      "Conducting grant-funded research at NYIT to improve EV charging-demand forecasting by developing demographic-informed machine learning methods.",
+    ],
+  },
+  {
+    tab: "NYIT · Research Assistant",
+    company: "New York Institute of Technology",
+    role: "Research Assistant",
+    period: "MAR 2026 – JUN 2026",
+    location: "New York, NY",
+    responsibilities: [
+      "Conducted an observational study on 16,000+ student records: applied EDA and statistical testing to isolate the effect of schedule gaps on GPA, finding no significant causal link, redirecting institutional policy toward retention-focused interventions.",
+      "Built a Python ETL pipeline to clean and normalize raw scheduling data, then developed and deployed an interactive Plotly dashboard (live on Render) used by stakeholders across all NYIT schools.",
     ],
   },
   {
     tab: "NYIT · Inst. Research",
-    company: "NYIT — Institutional Research",
+    company: "New York Institute of Technology",
     role: "Student Worker",
     period: "JAN 2026 – MAR 2026",
     location: "New York, NY",
     responsibilities: [
-      "Mined large, unstructured institutional datasets — parsing ~60 semester-map PDFs (camelot-py, pandas) into structured datasets and building a course-flow visualizer that surfaced co-/pre-requisite redundancies across degree programs to inform curriculum optimization.",
-      "Integrated the Google Distance Matrix API to collect commute data for 3,500+ students, ran multi-dimensional EDA (time, distance, transit mode), and delivered findings via an interactive Plotly Dash dashboard to guide early/late scheduling.",
+      "Transformed unstructured institutional data (using camelot-py & pandas) into structured analytical datasets and built a course-flow visualizer, surfacing co-/pre-requisite redundancies across degree programs to inform curriculum optimization.",
+      "Integrated the Google Distance Matrix API to collect commute data for 3,500+ students; conducted multi-dimensional EDA (time, distance, transit mode) and delivered findings via an interactive dashboard using Looker Studio, enabling data-driven early/late scheduling decisions.",
     ],
   },
   {
